@@ -65,21 +65,26 @@ public class StudentRepository {
 //    delete list of students for a given teacher
     public void deleteTeacherStudentPairFromDB(String teacherName){
         for(String studentName:studentTeacherPair.keySet()){
-            if(studentTeacherPair.get(studentName).equals(teacherName)){
-                students.remove(studentName);
-                teachers.remove(teacherName);
-                studentTeacherPair.remove(studentName);
+            if(studentTeacherPair.get(studentName)==teacherName){
+                if(students.containsKey(studentName)){
+                    students.remove(studentName);
+                }
+                if(teachers.containsKey(teacherName)){
+                    teachers.remove(teacherName);
+                }
             }
         }
     }
 
 //    delete all the records of students and teachers
     public void deleteAllStudentTeacher(){
-        for(String student: students.keySet()){
-            students.remove(student);
-        }
-        for(String teacher: teachers.keySet()){
-            students.remove(teacher);
+        for(String studentName:studentTeacherPair.keySet()){
+            if(students.containsKey(studentName)){
+                students.remove(studentName);
+            }
+            if(teachers.containsKey(studentTeacherPair.get(studentName))){
+                teachers.remove(studentTeacherPair.get(studentName));
+            }
         }
 
     }
